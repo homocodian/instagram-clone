@@ -31,19 +31,22 @@ function CreateStory() {
         <div
           aria-label="create story"
           role={"button"}
-          className="h-16 w-16 rounded-full p-[2px] border-2 
-        border-red-600"
+          className="h-[64px] w-[64px] rounded-full p-[2px] 
+          bg-gradient-to-bl from-fuchsia-600 to-amber-500"
           onClick={openStoryModal}
         >
-          <div
-            className="inline-grid w-full h-full place-items-center 
-          rounded-full gradient-bg"
-          >
-            <PlusIcon className="h-6 w-6 text-white" />
+          <div className="p-[2px] rounded-full bg-white">
+            <div
+              className="inline-grid w-[56px] h-[56px] place-items-center 
+              rounded-full gradient-bg"
+            >
+              <PlusIcon className="h-6 w-6 text-white" />
+            </div>
           </div>
         </div>
         <div className="text-xs text-center truncate">You</div>
       </div>
+      {/* dialogs */}
       <UploadStoryModal isOpen={isOpen} closeModal={closeModal} />
       <ConfirmDialog
         title="Discard Post?"

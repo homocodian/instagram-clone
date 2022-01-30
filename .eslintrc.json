@@ -2,6 +2,7 @@
   "extends": "next/core-web-vitals",
   "rules": {
     "no-console": 1,
-    "no-import-assign": "error"
+    "no-import-assign": "error",
+    "@next/next/no-img-element": "off"
   }
 }

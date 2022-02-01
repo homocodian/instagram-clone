@@ -4,7 +4,7 @@ interface IProps {
 }
 function Story({ src, username }: IProps) {
   return (
-    <div className="w-16 cursor-pointer space-y-2">
+    <div className="w-16 cursor-pointer space-y-2 last:mr-4">
       <div
         className="p-[2px] h-[64px] w-[64px] rounded-full bg-gradient-to-bl 
         from-fuchsia-700 to-amber-500"

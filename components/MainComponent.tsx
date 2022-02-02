@@ -1,3 +1,4 @@
+import Posts from "./Posts";
 import Stories from "./storiesComponent";
 
 function MainComponent() {
@@ -7,6 +8,7 @@ function MainComponent() {
         <section className="mt-[30px] flex-1 max-w-[600px] w-full mx-auto">
           <div>
             <Stories />
+            <Posts />
           </div>
         </section>
       </main>

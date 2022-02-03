@@ -1,18 +1,24 @@
 import Posts from "./Posts";
+import Sidebar from "./sidebar";
 import Stories from "./storiesComponent";
 
 function MainComponent() {
   return (
-    <section className="min-h-screen overflow-hidden">
-      <main className="max-w-[935px] mx-auto flex flex-1 flex-shrink-0 items-stretch">
-        <section className="mt-[30px] flex-1 max-w-[600px] w-full mx-auto">
-          <div>
+    <main>
+      <section className="min-h-screen overflow-y-hidden">
+        <div className="relative flex max-w-[600px] lg:max-w-4xl mx-auto">
+          <div className="mt-[30px] max-w-[600px]">
             <Stories />
             <Posts />
           </div>
-        </section>
-      </main>
-    </section>
+          <div className="hidden lg:inline-grid">
+            <div className="fixed top-[120px] w-[320px] px-8">
+              <Sidebar />
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
   );
 }
 

@@ -18,7 +18,7 @@ function Left() {
         />
       </div>
       <div
-        className="relative w-24 lg:hidden flex-shrink-0
+        className="relative w-24 lg:hidden
         cursor-pointer"
       >
         <Image

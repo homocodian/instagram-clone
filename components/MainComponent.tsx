@@ -6,8 +6,8 @@ function MainComponent() {
   return (
     <main>
       <section className="min-h-screen overflow-y-hidden">
-        <div className="relative flex max-w-[600px] lg:max-w-4xl mx-auto">
-          <div className="mt-[30px] max-w-[600px]">
+        <div className="relative lg:flex max-w-4xl lg:mx-auto">
+          <div className="mt-[30px] max-w-[600px] mx-auto lg:mx-0">
             <Stories />
             <Posts />
           </div>

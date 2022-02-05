@@ -1,6 +1,7 @@
 import Left from "./Left";
 import Middle from "./Middle";
 import Right from "./Right";
+
 function Header() {
   return (
     <header className="bg-white border-b sticky top-0 z-20">

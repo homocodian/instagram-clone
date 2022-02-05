@@ -11,6 +11,7 @@ import {
 } from "@heroicons/react/solid";
 import Image from "next/image";
 import { useState } from "react";
+import { useAuth } from "../../utils/AuthProvider";
 import Icons from "./Icons";
 
 function Right() {
@@ -19,6 +20,7 @@ function Right() {
     chat: false,
     activity: false,
   });
+  const { user, signOut } = useAuth();
   const handleChangeChange = (title: string) => {
     switch (title) {
       case "home":
@@ -47,6 +49,15 @@ function Right() {
         break;
     }
   };
+
+  const logout = async () => {
+    try {
+      await signOut();
+    } catch (error) {
+      console.warn(error);
+    }
+  };
+
   return (
     <div className="flex items-center gap-4">
       <Icons
@@ -69,13 +80,19 @@ function Right() {
         title="activity"
         handleStateChange={handleChangeChange}
       />
-      <div className="rounded-full flex items-start justify-center cursor-pointer">
+      <div
+        aria-label="logout"
+        role={"button"}
+        className="rounded-full flex items-start justify-center cursor-pointer"
+        onClick={logout}
+      >
         <Image
           priority
           layout="fixed"
           height={25}
           width={25}
           src={
+            user?.photoURL ||
             "https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=388&q=80"
           }
           alt="profile"

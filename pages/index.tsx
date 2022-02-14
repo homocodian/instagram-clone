@@ -3,7 +3,7 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import { useAuth } from "../utils/AuthProvider";
 import { useEffect } from "react";
-import Header from "../components/header";
+import Header from "../components/header/Header";
 import MainComponent from "../components/MainComponent";
 
 const Home: NextPage = () => {

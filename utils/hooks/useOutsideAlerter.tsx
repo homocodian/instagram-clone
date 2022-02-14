@@ -9,16 +9,9 @@ function useOutsideAlerter(initialValue: boolean) {
         setVisible(false);
       }
     };
-    const onKeyPress = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
-        setVisible(false);
-      }
-    };
     document.addEventListener("click", handleOutsideClick, true);
-    document.addEventListener("keypress", onKeyPress, true);
     return () => {
       document.removeEventListener("click", handleOutsideClick, true);
-      document.removeEventListener("keypress", onKeyPress, true);
     };
   }, [ref]);
   return { visible, setVisible, elementRef: ref };

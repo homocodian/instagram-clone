@@ -1,6 +1,6 @@
 import { auth } from "./firebase";
-import Loading from "../components/loading";
 import { createContext, useContext, useEffect, useState } from "react";
+import SplashScreen from "../components/SplashScreen";
 import {
   GoogleAuthProvider,
   signInWithPopup,
@@ -49,7 +49,7 @@ export function AuthProvider({ children }: any) {
 
   return (
     <AuthContext.Provider value={{ user, signInWithGoogle, signOut: logout }}>
-      {loading ? <Loading /> : children}
+      {loading ? <SplashScreen /> : children}
     </AuthContext.Provider>
   );
 }

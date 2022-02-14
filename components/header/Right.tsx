@@ -15,6 +15,8 @@ import {
   HeartIcon as HeartIconFilled,
 } from "@heroicons/react/solid";
 import Icons from "./Icons";
+import { errorMessage } from "../../utils/atoms/errorMessage";
+import getErrorMessage from "../../utils/firebaseErrors";
 
 function Right() {
   const [activeIcons, setActiveIcons] = useState({
@@ -22,8 +24,9 @@ function Right() {
     chat: false,
     activity: false,
   });
-  const setPostModalOpen = useSetRecoilState(addPostState);
   const { user, signOut } = useAuth();
+  const setPostModalOpen = useSetRecoilState(addPostState);
+  const setLogoutError = useSetRecoilState(errorMessage);
   const handleChangeChange = (title: string) => {
     switch (title) {
       case "home":
@@ -57,7 +60,7 @@ function Right() {
     try {
       await signOut();
     } catch (error) {
-      console.warn(error);
+      setLogoutError(getErrorMessage(error));
     }
   };
 

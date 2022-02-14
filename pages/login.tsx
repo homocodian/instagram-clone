@@ -4,21 +4,25 @@ import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { useAuth } from "../utils/AuthProvider";
 import InstagramLogo from "../public/instagram.png";
+import { useSetRecoilState } from "recoil";
+import { errorMessage } from "../utils/atoms/errorMessage";
+import getErrorMessage from "../utils/firebaseErrors";
 
-const login: NextPage = () => {
+const Login: NextPage = () => {
   const { user, signInWithGoogle } = useAuth();
+  const setLoginError = useSetRecoilState(errorMessage);
   const router = useRouter();
   useEffect(() => {
     if (user) {
       router.replace("/");
     }
-  }, [user]);
+  }, [user, router]);
 
   const login = async () => {
     try {
       await signInWithGoogle();
     } catch (error) {
-      console.log(error);
+      setLoginError(getErrorMessage(error));
     }
   };
 
@@ -44,4 +48,4 @@ const login: NextPage = () => {
   );
 };
 
-export default login;
+export default Login;

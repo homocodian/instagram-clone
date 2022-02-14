@@ -1,12 +1,16 @@
+import { useSetRecoilState } from "recoil";
+import { errorMessage } from "../../utils/atoms/errorMessage";
 import { useAuth } from "../../utils/AuthProvider";
+import getErrorMessage from "../../utils/firebaseErrors";
 
 function Profile() {
   const { user, signOut } = useAuth();
+  const setSignoutError = useSetRecoilState(errorMessage);
   const logout = async () => {
     try {
       await signOut();
     } catch (error) {
-      console.warn(error);
+      setSignoutError(getErrorMessage(error));
     }
   };
 

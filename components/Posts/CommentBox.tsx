@@ -55,7 +55,6 @@ function CommentBox({ id, user }: IProps) {
         timestamp: serverTimestamp(),
       });
     } catch (error) {
-      console.error(error);
       setCommentError(getErrorMessage(error));
     } finally {
       setInput("");

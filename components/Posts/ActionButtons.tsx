@@ -44,7 +44,7 @@ function ActionButtons({ user, id }: IProps) {
       onSnapshot(query(collection(db, `posts/${id}/likes`)), (snapshot) => {
         setLikes(snapshot.docs);
       }),
-    []
+    [id]
   );
 
   // check if user has liked this post
@@ -64,7 +64,6 @@ function ActionButtons({ user, id }: IProps) {
         await deleteDoc(doc(db, `posts/${id}/likes/${user?.uid}`));
       }
     } catch (error) {
-      console.error(error);
       setLikeError(getErrorMessage(error));
     }
   };

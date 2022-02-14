@@ -44,7 +44,7 @@ function UploadPostModal() {
       setCaption("");
       setVisible(false);
     }
-  }, [postToUpload]);
+  }, [postToUpload, setVisible]);
 
   function readFileAsDataUrl(file: any) {
     return new Promise(function (resolve, reject) {
@@ -148,7 +148,6 @@ function UploadPostModal() {
         timestamp: serverTimestamp(),
       });
     } catch (error: any) {
-      console.error(error);
       setUploadError(getErrorMessage(error));
     } finally {
       setIsUploading(false);

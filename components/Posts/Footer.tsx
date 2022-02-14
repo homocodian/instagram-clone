@@ -67,7 +67,7 @@ function Footer({ id, username, date, caption }: IProps) {
           setComments(snapshot.docs);
         }
       ),
-    []
+    [id]
   );
 
   useEffect(() => {

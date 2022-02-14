@@ -1,6 +1,6 @@
-import Posts from "./posts/Posts";
-import Sidebar from "./sidebar/Sidebar";
-import Stories from "./stories/Stories";
+import Posts from "./postComponent/Posts";
+import Sidebar from "./sidebarComponent/Sidebar";
+import Stories from "./storiesComponent/Stories";
 
 function MainComponent() {
   return (

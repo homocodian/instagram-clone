@@ -4,7 +4,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import { XIcon, PhotographIcon } from "@heroicons/react/solid";
 import { getStoryState } from "../../utils/atoms/getStoryState";
 import { useDropzone } from "react-dropzone";
-import ConfirmDialog from "../dialog/ConfirmDialog";
+import ConfirmDialog from "../ConfirmDialog";
 
 interface IProps {
   isOpen: boolean;

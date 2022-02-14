@@ -6,7 +6,7 @@ import { useDropzone } from "react-dropzone";
 import isOnline from "../../utils/checkNetwork";
 import { useAuth } from "../../utils/AuthProvider";
 import { db, storage } from "../../utils/firebase";
-import ConfirmDialog from "../dialog/ConfirmDialog";
+import ConfirmDialog from "../ConfirmDialog";
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useCallback, useEffect, useRef, useState } from "react";
 import getErrorMessage from "../../utils/firebaseErrors";

@@ -7,7 +7,7 @@ import { errorMessage } from "../../utils/atoms/errorMessage";
 import { useAuth } from "../../utils/AuthProvider";
 import { db, storage } from "../../utils/firebase";
 import getErrorMessage from "../../utils/firebaseErrors";
-import ConfirmDialog from "../dialog/ConfirmDialog";
+import ConfirmDialog from "../ConfirmDialog";
 
 interface IProps {
   id: string;

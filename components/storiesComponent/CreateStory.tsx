@@ -4,7 +4,6 @@ import { PlusIcon } from "@heroicons/react/solid";
 import { useRecoilState } from "recoil";
 import { getConfirmDialogState } from "../../utils/atoms/getConfirmModalState";
 import { getStoryState } from "../../utils/atoms/getStoryState";
-import ConfirmDialog from "../Dialog/ConfirmDialog";
 
 function CreateStory() {
   const [isOpen, setIsOpen] = useState(false);
@@ -47,14 +46,11 @@ function CreateStory() {
         <div className="text-xs text-center truncate">You</div>
       </div>
       {/* dialogs */}
-      <UploadStoryModal isOpen={isOpen} closeModal={closeModal} />
-      <ConfirmDialog
-        title="Discard Post?"
-        subtitle="If you leave, your edits won't be saved"
-        positiveButtonColor="text-red-500"
-        positiveButtonLable="Discard"
-        isOpen={isConfirmDialogOpen}
-        closeModal={closeConfirmDialog}
+      <UploadStoryModal
+        isOpen={isOpen}
+        closeModal={closeModal}
+        isConfirmDialogOpen={isConfirmDialogOpen}
+        closeConfirmDialog={closeConfirmDialog}
         onPositiveClick={onPositiveClick}
       />
     </>

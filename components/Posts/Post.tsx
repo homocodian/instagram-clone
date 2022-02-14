@@ -1,19 +1,20 @@
 import Image from "next/image";
-import { DotsHorizontalIcon } from "@heroicons/react/solid";
-import PostCarousel from "./PostCarousel";
 import Footer from "./Footer";
 import { useState } from "react";
 import PostOptions from "./PostOptions";
+import PostCarousel from "./PostCarousel";
+import { Timestamp } from "firebase/firestore";
+import { DotsHorizontalIcon } from "@heroicons/react/solid";
 
 interface IProps {
   id: string;
   profile: string;
   username: string;
-  likes: number;
+  likes?: number;
   caption: string;
-  timestamp: Date;
-  numberOfComments: number;
-  images: string[];
+  timestamp: Timestamp;
+  numberOfComments?: number;
+  images: { imageUrl: string; imageName: number }[];
 }
 
 function Post({
@@ -62,12 +63,15 @@ function Post({
           </header>
           <PostCarousel>
             {images.map((image) => (
-              <div key={id} className="relative w-full h-[450px] sm:h-[600px]">
+              <div
+                key={id}
+                className="relative w-full h-[450px] sm:h-[600px] select-none"
+              >
                 <Image
                   priority
                   layout="fill"
                   objectFit="cover"
-                  src={image}
+                  src={image.imageUrl}
                   alt=""
                 />
               </div>
@@ -82,7 +86,13 @@ function Post({
           />
         </div>
       </div>
-      <PostOptions isOpen={isPostOptionOpen} closeModal={closeModal} />
+      <PostOptions
+        id={id}
+        images={images}
+        isOpen={isPostOptionOpen}
+        closeModal={closeModal}
+        username={username}
+      />
     </>
   );
 }

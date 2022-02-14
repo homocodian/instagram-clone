@@ -1,5 +1,5 @@
 import { Dialog, Transition } from "@headlessui/react";
-import { Fragment } from "react";
+import { Fragment, useRef } from "react";
 
 interface IProps {
   title: string;
@@ -22,11 +22,13 @@ function ConfirmDialog({
   isOpen,
   closeModal,
 }: IProps) {
+  const initialCancelButtonRef = useRef<HTMLButtonElement | null>(null);
   return (
     <Transition appear show={isOpen} as={Fragment}>
       <Dialog
         as="div"
-        className="fixed inset-0 z-10 overflow-y-auto"
+        initialFocus={initialCancelButtonRef}
+        className="fixed inset-0 z-40 overflow-y-auto"
         onClose={closeModal}
       >
         <div className="min-h-screen px-4 text-center">
@@ -74,12 +76,12 @@ function ConfirmDialog({
                   <p className="text-sm mt-2 text-gray-500">{subtitle}</p>
                 )}
               </Dialog.Title>
-              <div className="mt-2 flex flex-col justify-center divide-y gap-2">
+              <div className="mt-2 flex flex-col justify-center divide-y gap-1">
                 <button
                   type="button"
                   className={`inline-flex justify-center px-4 py-2 
                   text-sm font-semibold ${positiveButtonColor}
-                  focus:outline-none`}
+                  focus:outline-none capitalize`}
                   onClick={onPositiveClick}
                 >
                   {positiveButtonLable}
@@ -87,8 +89,9 @@ function ConfirmDialog({
                 <button
                   type="button"
                   className="inline-flex justify-center px-4 py-2 
-                  text-sm font-medium text-gray-900"
+                  text-sm font-medium text-gray-900 focus:outline-none"
                   onClick={closeModal}
+                  ref={initialCancelButtonRef}
                 >
                   {negativeButtonLabel}
                 </button>

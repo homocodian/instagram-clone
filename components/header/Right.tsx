@@ -1,3 +1,8 @@
+import Image from "next/image";
+import { useState } from "react";
+import { useSetRecoilState } from "recoil";
+import { addPostState } from "../../utils/atoms/addPostState";
+import { useAuth } from "../../utils/AuthProvider";
 import {
   HomeIcon,
   ChatIcon,
@@ -9,9 +14,6 @@ import {
   ChatIcon as ChatIconFilled,
   HeartIcon as HeartIconFilled,
 } from "@heroicons/react/solid";
-import Image from "next/image";
-import { useState } from "react";
-import { useAuth } from "../../utils/AuthProvider";
 import Icons from "./Icons";
 
 function Right() {
@@ -20,6 +22,7 @@ function Right() {
     chat: false,
     activity: false,
   });
+  const setPostModalOpen = useSetRecoilState(addPostState);
   const { user, signOut } = useAuth();
   const handleChangeChange = (title: string) => {
     switch (title) {
@@ -74,6 +77,7 @@ function Right() {
         Icon={PlusCircleIcon}
         title="post"
         handleStateChange={handleChangeChange}
+        handleClick={() => setPostModalOpen(true)}
       />
       <Icons
         Icon={activeIcons.activity ? HeartIconFilled : HeartIcon}

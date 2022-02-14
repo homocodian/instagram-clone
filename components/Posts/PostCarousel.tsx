@@ -37,6 +37,7 @@ function renderArrowPrev(
         visibility: `${hasPrev ? "visible" : "hidden"}`,
       }}
       aria-label={label}
+      type="button"
       onClick={clickHandler}
     >
       <span
@@ -61,6 +62,7 @@ function renderArrowNext(
       style={{
         visibility: `${hasNext ? "visible" : "hidden"}`,
       }}
+      type="button"
       aria-label={label}
       onClick={clickHandler}
     >

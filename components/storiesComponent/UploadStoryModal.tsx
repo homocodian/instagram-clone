@@ -4,13 +4,23 @@ import { Dialog, Transition } from "@headlessui/react";
 import { XIcon, PhotographIcon } from "@heroicons/react/solid";
 import { getStoryState } from "../../utils/atoms/getStoryState";
 import { useDropzone } from "react-dropzone";
+import ConfirmDialog from "../Dialog/ConfirmDialog";
 
 interface IProps {
   isOpen: boolean;
   closeModal: () => void;
+  isConfirmDialogOpen: boolean;
+  closeConfirmDialog: () => void;
+  onPositiveClick: () => void;
 }
 
-function UploadStoryModal({ isOpen, closeModal }: IProps) {
+function UploadStoryModal({
+  isOpen,
+  closeModal,
+  isConfirmDialogOpen,
+  closeConfirmDialog,
+  onPositiveClick,
+}: IProps) {
   const [storyToUpload, setStoryToUpload] = useRecoilState(getStoryState);
 
   const removeImage = () => setStoryToUpload(null);
@@ -149,6 +159,15 @@ function UploadStoryModal({ isOpen, closeModal }: IProps) {
               </div>
             </Transition.Child>
           </div>
+          <ConfirmDialog
+            title="Discard Post?"
+            subtitle="If you leave, your edits won't be saved"
+            positiveButtonColor="text-red-500"
+            positiveButtonLable="Discard"
+            isOpen={isConfirmDialogOpen}
+            closeModal={closeConfirmDialog}
+            onPositiveClick={onPositiveClick}
+          />
         </Dialog>
       </Transition>
     </>

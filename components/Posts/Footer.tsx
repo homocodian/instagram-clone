@@ -13,13 +13,14 @@ import {
   PaperAirplaneIcon,
 } from "@heroicons/react/outline";
 import TimeAgo, { Unit, Suffix } from "react-timeago";
+import { Timestamp } from "firebase/firestore";
 
 interface IProps {
-  date: Date;
+  date: Timestamp;
   username: string;
-  likes: number;
+  likes?: number;
   caption: string;
-  numberOfComments: number;
+  numberOfComments?: number;
 }
 
 function Footer({ username, likes, date, caption, numberOfComments }: IProps) {
@@ -90,23 +91,27 @@ function Footer({ username, likes, date, caption, numberOfComments }: IProps) {
         </div>
         {/* number of likes */}
         <div>
-          <p className="font-semibold text-sm">{`${likes} likes`}</p>
+          {likes && <p className="font-semibold text-sm">{`${likes} likes`}</p>}
         </div>
         {/* commets */}
         <div>
-          <p className="text-sm truncate max-w-[90%]">
-            <span className="font-semibold text-sm">{username}</span>
-            {` ${caption}`}
-          </p>
+          {caption && (
+            <p className="text-sm truncate max-w-[90%]">
+              <span className="font-semibold text-sm">{username}</span>
+              {` ${caption}`}
+            </p>
+          )}
         </div>
         <div>
-          <p className="text-sm text-gray-400 cursor-pointer">
-            {`view all ${numberOfComments} comments`}
-          </p>
+          {numberOfComments && (
+            <p className="text-sm text-gray-400 cursor-pointer">
+              {`view all ${numberOfComments} comments`}
+            </p>
+          )}
         </div>
         <p className="uppercase text-xs text-gray-400 cursor-pointer">
           {/* @ts-ignore */}
-          <TimeAgo date={date} minPeriod={60} formatter={formatter} />
+          <TimeAgo date={date?.toDate()} minPeriod={60} formatter={formatter} />
         </p>
       </div>
       <div className="mt-2 px-4 py-3 border-t relative">

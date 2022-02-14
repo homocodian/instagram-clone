@@ -10,23 +10,12 @@ interface IProps {
   id: string;
   profile: string;
   username: string;
-  likes?: number;
   caption: string;
   timestamp: Timestamp;
-  numberOfComments?: number;
   images: { imageUrl: string; imageName: number }[];
 }
 
-function Post({
-  id,
-  username,
-  timestamp,
-  profile,
-  likes,
-  caption,
-  numberOfComments,
-  images,
-}: IProps) {
+function Post({ id, username, timestamp, profile, caption, images }: IProps) {
   const [isPostOptionOpen, setIsPostOptionsOpen] = useState(false);
 
   function closeModal() {
@@ -78,11 +67,10 @@ function Post({
             ))}
           </PostCarousel>
           <Footer
+            id={id}
             username={username}
             date={timestamp}
-            likes={likes}
             caption={caption}
-            numberOfComments={numberOfComments}
           />
         </div>
       </div>

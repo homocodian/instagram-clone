@@ -74,10 +74,10 @@ function UploadPostModal() {
     [setPostToUpload]
   );
 
-  // only 3 files and upto only 5 mb is allowed
+  // only 5 files and upto only 5 mb is allowed
   const { getRootProps, getInputProps, inputRef } = useDropzone({
     onDrop,
-    maxFiles: 3,
+    maxFiles: 5,
     maxSize: 5 * 1024 * 1024,
   });
 

@@ -5,6 +5,7 @@ import { Fragment, useRef, useState } from "react";
 import { useSetRecoilState } from "recoil";
 import { errorMessage } from "../../utils/atoms/errorMessage";
 import { useAuth } from "../../utils/AuthProvider";
+import isOnline from "../../utils/checkNetwork";
 import { db, storage } from "../../utils/firebase";
 import getErrorMessage from "../../utils/firebaseErrors";
 import ConfirmDialog from "../ConfirmDialog";
@@ -15,15 +16,28 @@ interface IProps {
   username: string;
   images: { imageUrl: string; imageName: number }[];
   closeModal: () => void;
+  deleteRealtimePost: (id: string) => void;
 }
 
-function PostOptions({ id, isOpen, username, closeModal, images }: IProps) {
+function PostOptions({
+  id,
+  isOpen,
+  username,
+  closeModal,
+  images,
+  deleteRealtimePost,
+}: IProps) {
   const { user } = useAuth();
   const setDeleteError = useSetRecoilState(errorMessage);
   const initialCancelButtonRef = useRef<HTMLParagraphElement | null>(null);
   const [isConfirmDialogOpen, setIsConfirmDialogOpen] = useState(false);
 
   const deletePost = async () => {
+    closeModal();
+    if (!isOnline()) {
+      setDeleteError("Check your network.");
+      return;
+    }
     const deleteImagesPromise: Promise<void>[] = [];
     const deletePostDoc = deleteDoc(doc(db, `posts/${id}`));
     deleteImagesPromise.push(deletePostDoc);
@@ -35,6 +49,7 @@ function PostOptions({ id, isOpen, username, closeModal, images }: IProps) {
     });
     try {
       await Promise.all(deleteImagesPromise);
+      deleteRealtimePost(id);
     } catch (error: any) {
       setDeleteError(getErrorMessage(error));
     }

@@ -13,9 +13,18 @@ interface IProps {
   caption: string;
   timestamp: Timestamp;
   images: { imageUrl: string; imageName: number }[];
+  deleteRealtimePost: (id: string) => void;
 }
 
-function Post({ id, username, timestamp, profile, caption, images }: IProps) {
+function Post({
+  id,
+  username,
+  timestamp,
+  profile,
+  caption,
+  images,
+  deleteRealtimePost,
+}: IProps) {
   const [isPostOptionOpen, setIsPostOptionsOpen] = useState(false);
 
   function closeModal() {
@@ -80,6 +89,7 @@ function Post({ id, username, timestamp, profile, caption, images }: IProps) {
         isOpen={isPostOptionOpen}
         closeModal={closeModal}
         username={username}
+        deleteRealtimePost={deleteRealtimePost}
       />
     </>
   );

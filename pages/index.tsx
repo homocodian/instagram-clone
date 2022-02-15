@@ -1,17 +1,18 @@
-import type { NextPage } from "next";
 import Head from "next/head";
-import { useRouter } from "next/router";
-import { useAuth } from "../utils/AuthProvider";
 import { useEffect } from "react";
+import type { NextPage } from "next";
+import { useRouter } from "next/router";
+import { useRecoilState } from "recoil";
+import { useAuth } from "../utils/AuthProvider";
 import Header from "../components/header/Header";
 import MainComponent from "../components/MainComponent";
+import { errorMessage } from "../utils/atoms/errorMessage";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useRecoilState } from "recoil";
-import { errorMessage } from "../utils/atoms/errorMessage";
+import SplashScreen from "../components/SplashScreen";
 
 const Home: NextPage = () => {
-  const { user } = useAuth();
+  const { user, loading } = useAuth();
   const router = useRouter();
   useEffect(() => {
     if (!user) {
@@ -27,6 +28,10 @@ const Home: NextPage = () => {
       },
     });
   }, [toastMessage]);
+
+  if (loading) {
+    return <SplashScreen />;
+  }
 
   return (
     <div>

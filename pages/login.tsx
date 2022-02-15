@@ -9,16 +9,19 @@ import { errorMessage } from "../utils/atoms/errorMessage";
 import getErrorMessage from "../utils/firebaseErrors";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import SplashScreen from "../components/SplashScreen";
 
 const Login: NextPage = () => {
-  const { user, signInWithGoogle } = useAuth();
-  const setLoginError = useSetRecoilState(errorMessage);
   const router = useRouter();
+  const { user, loading, signInWithGoogle } = useAuth();
+  const setLoginError = useSetRecoilState(errorMessage);
+
   useEffect(() => {
     if (user) {
       router.replace("/");
     }
   }, [user, router]);
+
   const [toastMessage, setToastMessage] = useRecoilState(errorMessage);
   useEffect(() => {
     if (!toastMessage) return;
@@ -28,6 +31,10 @@ const Login: NextPage = () => {
       },
     });
   }, [toastMessage]);
+
+  if (loading) {
+    return <SplashScreen />;
+  }
 
   const login = async () => {
     try {

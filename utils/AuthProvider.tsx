@@ -11,8 +11,9 @@ import {
 
 type ContextType = {
   user: User | null;
-  signInWithGoogle: () => Promise<UserCredential>;
+  loading: boolean;
   signOut: () => Promise<void>;
+  signInWithGoogle: () => Promise<UserCredential>;
 };
 
 const signInWithGoogle = () => {
@@ -26,6 +27,7 @@ const logout = () => {
 
 const AuthContext = createContext<ContextType>({
   user: null,
+  loading: true,
   signInWithGoogle,
   signOut: logout,
 });
@@ -48,7 +50,9 @@ export function AuthProvider({ children }: any) {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, signInWithGoogle, signOut: logout }}>
+    <AuthContext.Provider
+      value={{ user, loading, signInWithGoogle, signOut: logout }}
+    >
       {loading ? <SplashScreen /> : children}
     </AuthContext.Provider>
   );

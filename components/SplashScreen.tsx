@@ -1,18 +1,18 @@
 import Image from "next/image";
-import InstagramLogo from "../public/instagram.png";
+import InstagramLogo from "../public/splash_screen_logo.png";
 
-function Loading() {
+function SplashScreen() {
   return (
     <div className="grid place-items-center h-screen">
       <Image
         src={InstagramLogo}
         alt="instgram logo"
-        width={50}
-        height={50}
+        width={40}
+        height={40}
         placeholder="blur"
       />
     </div>
   );
 }
 
-export default Loading;
+export default SplashScreen;

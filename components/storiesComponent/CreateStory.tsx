@@ -48,6 +48,7 @@ function CreateStory() {
       {/* dialogs */}
       <UploadStoryModal
         isOpen={isOpen}
+        setIsOpen={setIsOpen}
         closeModal={closeModal}
         isConfirmDialogOpen={isConfirmDialogOpen}
         closeConfirmDialog={closeConfirmDialog}

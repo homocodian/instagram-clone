@@ -1,13 +1,15 @@
-import { useRecoilState } from "recoil";
+import ConfirmDialog from "../ConfirmDialog";
+import { useDropzone } from "react-dropzone";
 import React, { Fragment, useCallback } from "react";
 import { Dialog, Transition } from "@headlessui/react";
+import { useRecoilState, useSetRecoilState } from "recoil";
+import { errorMessage } from "../../utils/atoms/errorMessage";
 import { XIcon, PhotographIcon } from "@heroicons/react/solid";
 import { getStoryState } from "../../utils/atoms/getStoryState";
-import { useDropzone } from "react-dropzone";
-import ConfirmDialog from "../ConfirmDialog";
 
 interface IProps {
   isOpen: boolean;
+  setIsOpen: (prop: boolean) => void;
   closeModal: () => void;
   isConfirmDialogOpen: boolean;
   closeConfirmDialog: () => void;
@@ -16,12 +18,14 @@ interface IProps {
 
 function UploadStoryModal({
   isOpen,
+  setIsOpen,
   closeModal,
   isConfirmDialogOpen,
   closeConfirmDialog,
   onPositiveClick,
 }: IProps) {
   const [storyToUpload, setStoryToUpload] = useRecoilState(getStoryState);
+  const setUploadError = useSetRecoilState(errorMessage);
 
   const removeImage = () => setStoryToUpload(null);
 
@@ -38,6 +42,12 @@ function UploadStoryModal({
   );
 
   const { getRootProps, getInputProps, inputRef } = useDropzone({ onDrop });
+
+  const uploadStory = () => {
+    removeImage();
+    setIsOpen(false);
+    setUploadError("This feature will be ready soon.");
+  };
 
   return (
     <>
@@ -141,6 +151,7 @@ function UploadStoryModal({
                       className="px-4 py-2 text-sm text-center
                       font-semibold text-white bg-red-600 border 
                       border-transparent rounded-md hover:bg-red-700"
+                      onClick={uploadStory}
                     >
                       Upload story
                     </button>

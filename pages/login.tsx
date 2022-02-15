@@ -4,9 +4,11 @@ import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { useAuth } from "../utils/AuthProvider";
 import InstagramLogo from "../public/instagram.png";
-import { useSetRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import { errorMessage } from "../utils/atoms/errorMessage";
 import getErrorMessage from "../utils/firebaseErrors";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Login: NextPage = () => {
   const { user, signInWithGoogle } = useAuth();
@@ -17,6 +19,15 @@ const Login: NextPage = () => {
       router.replace("/");
     }
   }, [user, router]);
+  const [toastMessage, setToastMessage] = useRecoilState(errorMessage);
+  useEffect(() => {
+    if (!toastMessage) return;
+    toast.warn(toastMessage, {
+      onClose: () => {
+        setToastMessage(null);
+      },
+    });
+  }, [toastMessage]);
 
   const login = async () => {
     try {
@@ -44,6 +55,17 @@ const Login: NextPage = () => {
           login
         </button>
       </div>
+      <ToastContainer
+        position="bottom-left"
+        autoClose={5000}
+        hideProgressBar
+        newestOnTop
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </main>
   );
 };

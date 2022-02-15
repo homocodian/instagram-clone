@@ -5,6 +5,10 @@ import { useAuth } from "../utils/AuthProvider";
 import { useEffect } from "react";
 import Header from "../components/header/Header";
 import MainComponent from "../components/MainComponent";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useRecoilState } from "recoil";
+import { errorMessage } from "../utils/atoms/errorMessage";
 
 const Home: NextPage = () => {
   const { user } = useAuth();
@@ -14,6 +18,15 @@ const Home: NextPage = () => {
       router.push("/login");
     }
   }, [user, router]);
+  const [toastMessage, setToastMessage] = useRecoilState(errorMessage);
+  useEffect(() => {
+    if (!toastMessage) return;
+    toast.warn(toastMessage, {
+      onClose: () => {
+        setToastMessage(null);
+      },
+    });
+  }, [toastMessage]);
 
   return (
     <div>
@@ -24,6 +37,17 @@ const Home: NextPage = () => {
       </Head>
       <Header />
       <MainComponent />
+      <ToastContainer
+        position="bottom-left"
+        autoClose={5000}
+        hideProgressBar
+        newestOnTop
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </div>
   );
 };

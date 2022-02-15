@@ -1,26 +1,27 @@
 import Post from "./Post";
+import Skeleton from "../Skeleton";
 import { db } from "../../utils/firebase";
 import { useEffect, useState } from "react";
 import UploadPostModal from "./UploadPostModal";
-import Loader from "../Loader";
 import {
   collection,
   DocumentData,
   onSnapshot,
   orderBy,
   query,
-  QuerySnapshot,
+  QueryDocumentSnapshot,
 } from "firebase/firestore";
 
 function Posts() {
-  const [realtimePosts, setRealtimePosts] =
-    useState<QuerySnapshot<DocumentData> | null>(null);
+  const [realtimePosts, setRealtimePosts] = useState<
+    QueryDocumentSnapshot<DocumentData>[] | null
+  >(null);
   useEffect(
     () =>
       onSnapshot(
         query(collection(db, "posts"), orderBy("timestamp", "desc")),
         (snapshot) => {
-          setRealtimePosts(snapshot);
+          setRealtimePosts(snapshot.docs);
         }
       ),
     []
@@ -29,8 +30,8 @@ function Posts() {
   return (
     <>
       <div>
-        {realtimePosts && realtimePosts.docs.length > 0 ? (
-          realtimePosts.docs.map((doc) => {
+        {realtimePosts && realtimePosts.length > 0 ? (
+          realtimePosts.map((doc) => {
             const { email, caption, timestamp, images, profile } = doc.data();
             return (
               <Post
@@ -45,7 +46,7 @@ function Posts() {
             );
           })
         ) : (
-          <Loader />
+          <Skeleton />
         )}
       </div>
       <UploadPostModal />
